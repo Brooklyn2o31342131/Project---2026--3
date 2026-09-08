@@ -51,7 +51,5 @@ Haalbaarheid 1
 Innovatief  3
 Nuttigheid: 4
 
-
-
-
-
+Functionaliteit: Inkomsten en uitgave weergeven en kunnen aanpassen. Overig geld inschaten voor volgende week bijvoorbeeld.
+Inkomsten en uitgaven in categorieën zetten en grafieken maken voor voor verschillende soorten inkomsten of uitgave.
