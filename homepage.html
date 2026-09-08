@@ -1,0 +1,138 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width,initial-scale=1" />
+    <title>Home Bank — Personal Banking</title>
+    <style>
+        :root{--primary:#0b74ff;--accent:#06b6d4;--muted:#6b7280;--bg:#f7fbff}
+        *{box-sizing:border-box}
+        body{font-family:Inter, system-ui, -apple-system, 'Segoe UI', Roboto, 'Helvetica Neue', Arial;line-height:1.4;color:#0f172a;margin:0;background:var(--bg)}
+        header{background:#fff;border-bottom:1px solid #e6eef9}
+        .container{max-width:1100px;margin:0 auto;padding:1rem}
+        .nav{display:flex;align-items:center;justify-content:space-between;gap:1rem}
+        .brand{display:flex;align-items:center;gap:.75rem;font-weight:700;font-size:1.05rem;color:var(--primary)}
+        .nav-links{display:flex;gap:1rem}
+        .nav-links a{color:var(--muted);text-decoration:none;font-weight:600}
+        .cta{display:flex;gap:.5rem}
+        .btn{padding:.55rem .9rem;border-radius:.5rem;border:1px solid transparent;cursor:pointer;font-weight:700}
+        .btn-primary{background:linear-gradient(90deg,var(--primary),#2b8eff);color:#fff}
+        .btn-ghost{background:transparent;border-color:transparent;color:var(--primary)}
+
+        .hero{padding:3.2rem 0;display:grid;grid-template-columns:1fr;gap:1.5rem;align-items:center}
+        .hero-left h1{font-size:2rem;margin:0 0 .6rem}
+        .hero-left p{color:var(--muted);margin:0 0 1rem}
+        .features{display:flex;flex-wrap:wrap;gap:1rem;margin-top:1rem}
+        .card{background:#fff;padding:1rem;border-radius:.75rem;flex:1 1 220px;border:1px solid #eef6ff}
+        .card h3{margin:.25rem 0 .5rem}
+
+        footer{padding:2rem 0;margin-top:2rem;color:var(--muted)}
+
+        /* responsive */
+        @media(min-width:800px){
+            .hero{grid-template-columns:1fr 420px}
+            .hero-left h1{font-size:2.5rem}
+        }
+        /* small utilities */
+        .muted{color:var(--muted)}
+        .small{font-size:.9rem}
+    </style>
+</head>
+<body>
+    <header>
+        <div class="container nav">
+            <div class="brand" aria-label="Home Bank logo">
+                <svg width="36" height="36" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true"><rect width="24" height="24" rx="6" fill="#0b74ff"/><path d="M7 11h10v2H7z" fill="#fff"/></svg>
+                Home Bank
+            </div>
+            <nav class="nav-links" aria-label="Main navigation">
+                <a href="#features">Features</a>
+                <a href="#rates">Rates</a>
+                <a href="#support">Support</a>
+            </nav>
+            <div class="cta">
+                <button class="btn btn-ghost" onclick="location.href='#login'">Log in</button>
+                <button class="btn btn-primary" onclick="location.href='#open'">Open account</button>
+            </div>
+        </div>
+    </header>
+
+    <main class="container">
+        <section class="hero" aria-labelledby="hero-heading">
+            <div class="hero-left">
+                <h1 id="hero-heading">Banking made human. Secure. Simple. Smart.</h1>
+                <p class="muted">Everyday banking with great rates, powerful tools and real people on hand when you need them.</p>
+                <div style="display:flex;gap:.6rem;flex-wrap:wrap;margin-top:1rem">
+                    <button class="btn btn-primary" onclick="location.href='#open'">Get started — it's free</button>
+                    <button class="btn" style="background:#eefcff;border:1px solid #d7f0ff;color:#075985" onclick="location.href='#features'">See features</button>
+                </div>
+
+                <div class="features" id="features">
+                    <div class="card">
+                        <h3>Checking accounts</h3>
+                        <p class="small muted">No monthly fees, contactless cards, instant transfers.</p>
+                    </div>
+                    <div class="card">
+                        <h3>Save & grow</h3>
+                        <p class="small muted">Competitive savings rates and smart automated plans.</p>
+                    </div>
+                    <div class="card">
+                        <h3>Secure access</h3>
+                        <p class="small muted">Multi-factor authentication and 24/7 monitoring.</p>
+                    </div>
+                </div>
+            </div>
+
+            <aside class="card" aria-label="Sign up panel">
+                <h3 style="margin-top:0">Open an account</h3>
+                <p class="muted small">Ready in minutes — no hidden fees.</p>
+                <form id="open" style="margin-top:1rem;display:flex;flex-direction:column;gap:.6rem">
+                    <input type="text" name="name" placeholder="Full name" required style="padding:.6rem;border-radius:.5rem;border:1px solid #e6eef9">
+                    <input type="email" name="email" placeholder="Email" required style="padding:.6rem;border-radius:.5rem;border:1px solid #e6eef9">
+                    <button class="btn btn-primary" type="submit">Create account</button>
+                </form>
+                <p class="small muted" style="margin-top:.8rem">Or <a href="#login">log in</a> to your existing account.</p>
+            </aside>
+        </section>
+
+        <section id="rates" style="margin-top:2rem;display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:1rem">
+            <div class="card">
+                <h3>Everyday savings</h3>
+                <p class="muted small">Rate: <strong>3.25% APY</strong></p>
+            </div>
+            <div class="card">
+                <h3>Fixed-term</h3>
+                <p class="muted small">Lock in higher rates with terms from 6–60 months.</p>
+            </div>
+            <div class="card">
+                <h3>Low-fee checking</h3>
+                <p class="muted small">Free ATM withdrawals at partner locations.</p>
+            </div>
+        </section>
+
+        <section id="support" style="margin-top:2rem">
+            <h3>Support when you need it</h3>
+            <p class="muted small">Phone, chat, and secure messages — our team is ready.</p>
+        </section>
+    </main>
+
+    <footer>
+        <div class="container" style="display:flex;flex-wrap:wrap;gap:1rem;justify-content:space-between;align-items:center">
+            <div class="small muted">© Home Bank — 2026. All rights reserved.</div>
+            <div style="display:flex;gap:1rem" class="small muted">
+                <a href="#" style="color:inherit;text-decoration:none">Privacy</a>
+                <a href="#" style="color:inherit;text-decoration:none">Terms</a>
+                <a href="#" style="color:inherit;text-decoration:none">Contact</a>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        // basic form demo: prevent submission and show simple feedback
+        document.getElementById('open')?.addEventListener('submit', function(e){
+            e.preventDefault();
+            alert('Thanks! Account creation flow would continue here.');
+        });
+    </script>
+</body>
+</html>
