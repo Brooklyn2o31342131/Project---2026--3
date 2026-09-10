@@ -43,7 +43,7 @@ Innovatief  3
 Nuttigheid: 4
 
 
-idee 2: een budget app die je een overzicht laat zien van je inkomsten en uitgaven. en het moment waar je over je budget gaat krijg je een melding
+idee 3: een budget app die je een overzicht laat zien van je inkomsten en uitgaven. en het moment waar je over je budget gaat krijg je een melding
         hoe werkt het: in je bank app krijg je de optie om een overzicht te zien van je inkomsten en uitgaven. als je over je budget gaat krijg je een meldingg
         het lost vergeten hoeveel je uitgeeft. 
 
@@ -53,3 +53,24 @@ Nuttigheid: 4
 
 Functionaliteit: Inkomsten en uitgave weergeven en kunnen aanpassen. Overig geld inschaten voor volgende week bijvoorbeeld.
 Inkomsten en uitgaven in categorieën zetten en grafieken maken voor voor verschillende soorten inkomsten of uitgave.
+
+Belangrijkste onderdelen:
+1.Inkomsten en uitgaven zien
+Gebruiker ziet hoeveel geld er binnenkomt en uitgaat.
+Actueel saldo en beschikbaar budget worden weergegeven.
+
+2.Budget instellen
+Gebruiker kan per week of maand een budget instellen.
+De app houdt automatisch bij hoeveel van het budget al is gebruikt.
+
+3.Snelheid
+de app moet snel openen en informatie zoals inkomsten en uitgaven snel laden
+
+
+Gedragingen:
+De gebruiker heeft overzicht van uitgaven en inkomsten.
+De gebruiker bekijkt hoeveel budget hij nog over heeft.
+De gebruiker krijgt een waarschuwing als hij bijna zijn limiet bereikt.
+De gebruiker bekijkt grafieken van zijn inkomsten en uitgaven.
+De gebruiker gebruikt de app snel zonder lang te hoeven wachten.
+
