@@ -78,3 +78,11 @@ De gebruiker gebruikt de app snel zonder lang te hoeven wachten.
 
 Link naar word document:
 https://talnet-my.sharepoint.com/:w:/r/personal/2240050_talnet_nl/Documents/Project_Brooklyn,Mateusz,Austin.docx?d=wee086311ce4746719083a8771de9b2fc&csf=1&web=1&e=jbC2G1
+
+
+1: Header waar je het verrekende totaal geld ziet / Alle variable die je moet gaan zien
+2: Een manier om te adden delete en afrekenen / Manier om die variable te bewerken
+3: De css opmaken
+4: Een variable waar je overig ziet voor elke maand /
+5: Make working login with a databese
+6: Extra pagina die je kan gebruiken als een sort spaarpot
