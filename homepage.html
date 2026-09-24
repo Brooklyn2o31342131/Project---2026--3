@@ -1,138 +1,986 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="nl">
 <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width,initial-scale=1" />
-    <title>Home Bank — Personal Banking</title>
+    <title>Home Bank — Dashboard</title>
+
     <style>
-        :root{--primary:#0b74ff;--accent:#06b6d4;--muted:#6b7280;--bg:#f7fbff}
-        *{box-sizing:border-box}
-        body{font-family:Inter, system-ui, -apple-system, 'Segoe UI', Roboto, 'Helvetica Neue', Arial;line-height:1.4;color:#0f172a;margin:0;background:var(--bg)}
-        header{background:#fff;border-bottom:1px solid #e6eef9}
-        .container{max-width:1100px;margin:0 auto;padding:1rem}
-        .nav{display:flex;align-items:center;justify-content:space-between;gap:1rem}
-        .brand{display:flex;align-items:center;gap:.75rem;font-weight:700;font-size:1.05rem;color:var(--primary)}
-        .nav-links{display:flex;gap:1rem}
-        .nav-links a{color:var(--muted);text-decoration:none;font-weight:600}
-        .cta{display:flex;gap:.5rem}
-        .btn{padding:.55rem .9rem;border-radius:.5rem;border:1px solid transparent;cursor:pointer;font-weight:700}
-        .btn-primary{background:linear-gradient(90deg,var(--primary),#2b8eff);color:#fff}
-         .btn-ghost{background:transparent;border-color:transparent;color:var(--primary)}
-
-        .hero{padding:3.2rem 0;display:grid;grid-template-columns:1fr;gap:1.5rem;align-items:center}
-        .hero-left h1{font-size:2rem;margin:0 0 .6rem}
-       .card h3{margin:.25rem 0 .5rem}
-    .hero-left p{color:var(--muted);margin:0 0 1rem}
-        .features{display:flex;flex-wrap:wrap;gap:1rem;margin-top:1rem}
-        .card{background:#fff;padding:1rem;border-radius:.75rem;flex:1 1 220px;border:1px solid #eef6ff}
-     
-        footer{padding:2rem 0;margin-top:2rem;color:var(--muted)}
-
-        /* responsive */
-        @media(min-width:800px){
-            .hero{grid-template-columns:1fr 420px}
-            .hero-left h1{font-size:2.5rem}
+        :root {
+            --primary: #4b46e5;
+            --primary-light: #6366f1;
+            --green: #00c98b;
+            --green-light: #d5f8ef;
+            --dark: #0f172a;
+            --muted: #8ba0c3;
+            --bg: #eaf2ff;
+            --card: rgba(255,255,255,.72);
+            --border: rgba(255,255,255,.8);
         }
-        /* small utilities */
-        .muted{color:var(--muted)}
-        .small{font-size:.9rem}
+
+        * {
+            box-sizing: border-box;
+        }
+
+        body {
+            margin: 0;
+            font-family: Inter, system-ui, -apple-system, BlinkMacSystemFont,
+                "Segoe UI", Roboto, Arial, sans-serif;
+            color: var(--dark);
+            background:
+                radial-gradient(circle at 20% 20%, #d9e8ff 0, transparent 35%),
+                radial-gradient(circle at 80% 30%, #d9f8f1 0, transparent 30%),
+                var(--bg);
+            line-height: 1.4;
+        }
+
+        /* =========================
+           NAVBAR
+        ========================= */
+
+        header {
+            padding: 1rem 0;
+            background: rgba(255,255,255,.6);
+            border-bottom: 1px solid rgba(255,255,255,.8);
+            backdrop-filter: blur(15px);
+        }
+
+        .container {
+            max-width: 1250px;
+            margin: 0 auto;
+            padding: 0 1.5rem;
+        }
+
+        .nav {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 1rem;
+        }
+
+        .brand {
+            display: flex;
+            align-items: center;
+            gap: .7rem;
+            font-weight: 800;
+            font-size: 1.15rem;
+            color: var(--dark);
+        }
+
+        .brand-icon {
+            width: 38px;
+            height: 38px;
+            border-radius: 11px;
+            display: grid;
+            place-items: center;
+            color: white;
+            background: linear-gradient(
+                135deg,
+                var(--primary),
+                var(--primary-light)
+            );
+        }
+
+        .nav-links {
+            display: flex;
+            gap: 1.5rem;
+        }
+
+        .nav-links a {
+            color: #667a9e;
+            text-decoration: none;
+            font-weight: 600;
+        }
+
+        .nav-links a:hover {
+            color: var(--primary);
+        }
+
+        .cta {
+            display: flex;
+            gap: .6rem;
+        }
+
+        .btn {
+            padding: .7rem 1rem;
+            border-radius: .65rem;
+            border: 1px solid transparent;
+            cursor: pointer;
+            font-weight: 700;
+            transition: .2s;
+        }
+
+        .btn:hover {
+            transform: translateY(-1px);
+        }
+
+        .btn-primary {
+            background: linear-gradient(
+                90deg,
+                var(--primary),
+                var(--primary-light)
+            );
+            color: #fff;
+            box-shadow: 0 8px 20px rgba(79,70,229,.2);
+        }
+
+        .btn-ghost {
+            background: transparent;
+            color: var(--primary);
+        }
+
+        /* =========================
+           DASHBOARD HEADER
+        ========================= */
+
+        .dashboard {
+            padding: 2rem 0 3rem;
+        }
+
+        .dashboard-top {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 1.3rem;
+        }
+
+        .dashboard-title {
+            margin: 0;
+            font-size: 1.7rem;
+        }
+
+        .dashboard-subtitle {
+            margin: .25rem 0 0;
+            color: var(--muted);
+        }
+
+        .add-transaction {
+            display: flex;
+            align-items: center;
+            gap: .55rem;
+            background: #111b30;
+            color: white;
+            border: 0;
+            border-radius: 999px;
+            padding: .9rem 1.4rem;
+            font-weight: 700;
+            cursor: pointer;
+            box-shadow: 0 10px 25px rgba(15,23,42,.18);
+        }
+
+        .add-transaction span {
+            font-size: 1.3rem;
+        }
+
+        /* =========================
+           BALANCE CARD
+        ========================= */
+
+        .balance-grid {
+            display: grid;
+            grid-template-columns: minmax(0, 1.45fr) minmax(320px, .95fr);
+            gap: 1.5rem;
+        }
+
+        .balance-card,
+        .budget-card {
+            border-radius: 30px;
+            border: 1px solid var(--border);
+            background: var(--card);
+            backdrop-filter: blur(20px);
+            box-shadow: 0 15px 45px rgba(74,102,150,.12);
+        }
+
+        .balance-card {
+            padding: 2.3rem 3rem;
+            min-height: 360px;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+            overflow: hidden;
+            position: relative;
+        }
+
+        .balance-card::after {
+            content: "";
+            position: absolute;
+            width: 350px;
+            height: 350px;
+            right: -120px;
+            top: -150px;
+            background: rgba(0,201,139,.12);
+            border-radius: 50%;
+            pointer-events: none;
+        }
+
+        .balance-label {
+            display: flex;
+            align-items: center;
+            gap: .7rem;
+            color: #7890b7;
+            font-size: 1.05rem;
+            font-weight: 600;
+        }
+
+        .wallet-icon {
+            width: 28px;
+            height: 28px;
+            color: #87a0c5;
+        }
+
+        .balance {
+            font-size: clamp(3.5rem, 6vw, 5.2rem);
+            letter-spacing: -4px;
+            line-height: 1;
+            margin: 1.1rem 0 .8rem;
+            font-weight: 800;
+        }
+
+        .positive {
+            display: inline-flex;
+            align-items: center;
+            width: fit-content;
+            gap: .35rem;
+            background: var(--green-light);
+            color: #00b87c;
+            padding: .5rem .85rem;
+            border-radius: 999px;
+            font-weight: 700;
+        }
+
+        /* =========================
+           INCOME / EXPENSE BAR
+        ========================= */
+
+        .money-summary {
+            margin-top: 2rem;
+        }
+
+        .money-labels {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: .8rem;
+            color: #7890b7;
+            font-weight: 600;
+        }
+
+        .money-bar {
+            width: 100%;
+            height: 18px;
+            background: #e4eaf4;
+            border-radius: 999px;
+            overflow: hidden;
+            display: flex;
+        }
+
+        .income-bar {
+            background: var(--green);
+            width: 70%;
+        }
+
+        .expense-bar {
+            background: var(--primary);
+            width: 30%;
+        }
+
+        .money-values {
+            display: flex;
+            justify-content: space-between;
+            margin-top: .8rem;
+            font-weight: 700;
+        }
+
+        .income-text {
+            color: #00bd83;
+        }
+
+        .expense-text {
+            color: var(--primary);
+        }
+
+        /* =========================
+           BUDGET CARD
+        ========================= */
+
+        .budget-card {
+            padding: 2.3rem;
+            min-height: 360px;
+        }
+
+        .budget-header {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+        }
+
+        .budget-header h2 {
+            margin: 0;
+            font-size: 1.5rem;
+        }
+
+        .budget-header button {
+            border: 0;
+            background: transparent;
+            color: #8296ba;
+            font-weight: 700;
+            cursor: pointer;
+        }
+
+        .budget-item {
+            margin-top: 2.2rem;
+        }
+
+        .budget-item-header {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: .7rem;
+            font-weight: 600;
+        }
+
+        .budget-value {
+            color: #8296ba;
+        }
+
+        .budget-progress {
+            height: 14px;
+            background: #e5eaf2;
+            border-radius: 999px;
+            overflow: hidden;
+        }
+
+        .budget-progress-fill {
+            height: 100%;
+            border-radius: inherit;
+            background: var(--primary);
+        }
+
+        .budget-progress-fill.green {
+            background: var(--green);
+        }
+
+        .remaining {
+            margin-top: 2rem;
+            padding: 1.5rem 1.7rem;
+            border-radius: 25px;
+            background: rgba(255,255,255,.55);
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .remaining span:first-child {
+            color: #8296ba;
+            font-size: 1.05rem;
+        }
+
+        .remaining strong {
+            font-size: 1.7rem;
+        }
+
+        /* =========================
+           FEATURES
+        ========================= */
+
+        .features {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 1rem;
+            margin-top: 1.5rem;
+        }
+
+        .card {
+            background: rgba(255,255,255,.75);
+            padding: 1.5rem;
+            border-radius: 20px;
+            border: 1px solid rgba(255,255,255,.8);
+            box-shadow: 0 10px 30px rgba(74,102,150,.08);
+        }
+
+        .card h3 {
+            margin: 0 0 .4rem;
+        }
+
+        .muted {
+            color: var(--muted);
+        }
+
+        .small {
+            font-size: .9rem;
+        }
+
+        footer {
+            padding: 2rem 0;
+            color: var(--muted);
+        }
+
+        /* =========================
+           MODAL
+        ========================= */
+
+        .modal {
+            display: none;
+            position: fixed;
+            inset: 0;
+            background: rgba(15,23,42,.45);
+            backdrop-filter: blur(5px);
+            z-index: 100;
+            align-items: center;
+            justify-content: center;
+            padding: 1rem;
+        }
+
+        .modal.active {
+            display: flex;
+        }
+
+        .modal-content {
+            width: min(450px, 100%);
+            background: white;
+            border-radius: 25px;
+            padding: 2rem;
+            box-shadow: 0 25px 70px rgba(15,23,42,.25);
+        }
+
+        .modal-content h2 {
+            margin-top: 0;
+        }
+
+        .form-group {
+            margin-bottom: 1rem;
+        }
+
+        .form-group label {
+            display: block;
+            font-weight: 700;
+            margin-bottom: .4rem;
+        }
+
+        .form-group input,
+        .form-group select {
+            width: 100%;
+            padding: .8rem;
+            border-radius: .7rem;
+            border: 1px solid #dce5f2;
+            font: inherit;
+        }
+
+        .modal-buttons {
+            display: flex;
+            justify-content: flex-end;
+            gap: .6rem;
+            margin-top: 1.2rem;
+        }
+
+        /* =========================
+           RESPONSIVE
+        ========================= */
+
+        @media (max-width: 900px) {
+            .balance-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .features {
+                grid-template-columns: 1fr;
+            }
+
+            .nav-links {
+                display: none;
+            }
+        }
+
+        @media (max-width: 600px) {
+            .dashboard-top {
+                align-items: flex-start;
+                flex-direction: column;
+                gap: 1rem;
+            }
+
+            .balance-card,
+            .budget-card {
+                padding: 1.5rem;
+                border-radius: 22px;
+            }
+
+            .balance {
+                font-size: 3.5rem;
+                letter-spacing: -3px;
+            }
+
+            .money-labels,
+            .money-values {
+                font-size: .85rem;
+            }
+
+            .cta .btn-ghost {
+                display: none;
+            }
+        }
     </style>
 </head>
+
 <body>
-    <header>
-        <div class="container nav">
-            <div class="brand" aria-label="Home Bank logo">
-                <svg width="36" height="36" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true"><rect width="24" height="24" rx="6" fill="#0b74ff"/><path d="M7 11h10v2H7z" fill="#fff"/></svg>
-                Home Bank
-            </div>
-            <nav class="nav-links" aria-label="Main navigation">
-                <a href="#features">Features</a>
-                <a href="#rates">Rates</a>
-                <a href="#support">Support</a>
-            </nav>
-            <div class="cta">
-                <button class="btn btn-ghost" onclick="location.href='#login'">Log in</button>
-                <button class="btn btn-primary" onclick="location.href='#open'">Open account</button>
-            </div>
-        </div>
-    </header>
 
-    <main class="container">
-        <section class="hero" aria-labelledby="hero-heading">
-            <div class="hero-left">
-                <h1 id="hero-heading">Banking made human. Secure. Simple. Smart.</h1>
-                <p class="muted">Everyday banking with great rates, powerful tools and real people on hand when you need them.</p>
-                <div style="display:flex;gap:.6rem;flex-wrap:wrap;margin-top:1rem">
-                    <button class="btn btn-primary" onclick="location.href='#open'">Get started — it's free</button>
-                    <button class="btn" style="background:#eefcff;border:1px solid #d7f0ff;color:#075985" onclick="location.href='#features'">See features</button>
+<header>
+    <div class="container nav">
+
+        <div class="brand">
+            <div class="brand-icon">
+                <svg width="23" height="23" viewBox="0 0 24 24" fill="none">
+                    <rect x="4" y="7" width="16" height="12" rx="2"
+                          stroke="white" stroke-width="2"/>
+                    <path d="M7 7V5.5C7 4.67 7.67 4 8.5 4h7C16.33 4 17 4.67 17 5.5V7"
+                          stroke="white" stroke-width="2"/>
+                </svg>
+            </div>
+            Home Bank
+        </div>
+
+        <nav class="nav-links">
+            <a href="#dashboard">Dashboard</a>
+            <a href="#features">Features</a>
+            <a href="#support">Support</a>
+        </nav>
+
+        <div class="cta">
+            <button class="btn btn-ghost">Log in</button>
+            <button class="btn btn-primary">Open account</button>
+        </div>
+
+    </div>
+</header>
+
+
+<main class="container dashboard" id="dashboard">
+
+    <!-- DASHBOARD HEADER -->
+
+    <div class="dashboard-top">
+        <div>
+            <h1 class="dashboard-title">Mijn financiën</h1>
+            <p class="dashboard-subtitle">
+                Overzicht van je inkomsten en uitgaven
+            </p>
+        </div>
+
+        <button class="add-transaction" onclick="openModal()">
+            <span>+</span>
+            Transactie toevoegen
+        </button>
+    </div>
+
+
+    <!-- BALANCE + BUDGET -->
+
+    <section class="balance-grid">
+
+        <!-- TOTAAL SALDO -->
+
+        <div class="balance-card">
+
+            <div>
+                <div class="balance-label">
+
+                    <svg class="wallet-icon" viewBox="0 0 24 24" fill="none">
+                        <rect x="3" y="5" width="18" height="15"
+                              rx="2"
+                              stroke="currentColor"
+                              stroke-width="1.8"/>
+                        <path d="M16 13h5"
+                              stroke="currentColor"
+                              stroke-width="1.8"/>
+                        <circle cx="16" cy="13" r="1"
+                                fill="currentColor"/>
+                    </svg>
+
+                    Saldo dit maand
                 </div>
 
-                <div class="features" id="features">
-                    <div class="card">
-                        <h3>Checking accounts</h3>
-                        <p class="small muted">No monthly fees, contactless cards, instant transfers.</p>
-                    </div>
-                    <div class="card">
-                        <h3>Save & grow</h3>
-                        <p class="small muted">Competitive savings rates and smart automated plans.</p>
-                    </div>
-                    <div class="card">
-                        <h3>Secure access</h3>
-                        <p class="small muted">Multi-factor authentication and 24/7 monitoring.</p>
-                    </div>
+                <!-- Dit bedrag wordt automatisch berekend -->
+                <div class="balance" id="balance">
+                    € 1.536,60
+                </div>
+
+                <div class="positive" id="balanceStatus">
+                    ▲ Positief
                 </div>
             </div>
 
-            <aside class="card" aria-label="Sign up panel">
-                <h3 style="margin-top:0">Open an account</h3>
-                <p class="muted small">Ready in minutes — no hidden fees.</p>
-                <form id="open" style="margin-top:1rem;display:flex;flex-direction:column;gap:.6rem">
-                    <input type="text" name="name" placeholder="Full name" required style="padding:.6rem;border-radius:.5rem;border:1px solid #e6eef9">
-                    <input type="email" name="email" placeholder="Email" required style="padding:.6rem;border-radius:.5rem;border:1px solid #e6eef9">
-                    <button class="btn btn-primary" type="submit">Create account</button>
-                </form>
-                <p class="small muted" style="margin-top:.8rem">Or <a href="#login">log in</a> to your existing account.</p>
-            </aside>
-        </section>
 
-        <section id="rates" style="margin-top:2rem;display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:1rem">
-            <div class="card">
-                <h3>Everyday savings</h3>
-                <p class="muted small">Rate: <strong>3.25% APY</strong></p>
-            </div>
-            <div class="card">
-                <h3>Fixed-term</h3>
-                <p class="muted small">Lock in higher rates with terms from 6–60 months.</p>
-            </div>
-            <div class="card">
-                <h3>Low-fee checking</h3>
-                <p class="muted small">Free ATM withdrawals at partner locations.</p>
-            </div>
-        </section>
+            <div class="money-summary">
 
-        <section id="support" style="margin-top:2rem">
-            <h3>Support when you need it</h3>
-            <p class="muted small">Phone, chat, and secure messages — our team is ready.</p>
-        </section>
-    </main>
+                <div class="money-labels">
+                    <span>Inkomsten</span>
+                    <span>Uitgaven</span>
+                </div>
 
-    <footer>
-        <div class="container" style="display:flex;flex-wrap:wrap;gap:1rem;justify-content:space-between;align-items:center">
-            <div class="small muted">© Home Bank — 2026. All rights reserved.</div>
-            <div style="display:flex;gap:1rem" class="small muted">
-                <a href="#" style="color:inherit;text-decoration:none">Privacy</a>
-                <a href="#" style="color:inherit;text-decoration:none">Terms</a>
-                <a href="#" style="color:inherit;text-decoration:none">Contact</a>
+                <div class="money-bar">
+                    <div class="income-bar" id="incomeBar"></div>
+                    <div class="expense-bar" id="expenseBar"></div>
+                </div>
+
+                <div class="money-values">
+                    <span class="income-text" id="incomeText">
+                        € 2.685,00 binnen
+                    </span>
+
+                    <span class="expense-text" id="expenseText">
+                        € 1.148,40 buiten
+                    </span>
+                </div>
+
             </div>
+
         </div>
-    </footer>
 
-    <script>
-        // basic form demo: prevent submission and show simple feedback
-        document.getElementById('open')?.addEventListener('submit', function(e){
-            e.preventDefault();
-            alert('Thanks! Account creation flow would continue here.');
-        });
-    </script>
+
+        <!-- MAANDBUDGET -->
+
+        <aside class="budget-card">
+
+            <div class="budget-header">
+                <h2>Maandbudget</h2>
+                <button>Pas aan</button>
+            </div>
+
+            <div class="budget-item">
+
+                <div class="budget-item-header">
+                    <span>Uitgaven</span>
+                    <span class="budget-value" id="budgetExpense">
+                        € 1.148
+                    </span>
+                </div>
+
+                <div class="budget-progress">
+                    <div
+                        class="budget-progress-fill"
+                        id="expenseProgress"
+                        style="width:63.8%">
+                    </div>
+                </div>
+
+            </div>
+
+
+            <div class="budget-item">
+
+                <div class="budget-item-header">
+                    <span>Resterend</span>
+                    <span style="color:#00c98b" id="budgetRemaining">
+                        € 652
+                    </span>
+                </div>
+
+                <div class="budget-progress">
+                    <div
+                        class="budget-progress-fill green"
+                        id="remainingProgress"
+                        style="width:36.2%">
+                    </div>
+                </div>
+
+            </div>
+
+
+            <div class="remaining">
+                <span>Limiet</span>
+
+                <strong id="budgetLimit">
+                    € 1.800,00
+                </strong>
+            </div>
+
+        </aside>
+
+    </section>
+
+
+    <!-- EXTRA CARDS -->
+
+    <section class="features" id="features">
+
+        <div class="card">
+            <h3>Checking account</h3>
+            <p class="small muted">
+                Bekijk je beschikbare saldo en recente transacties.
+            </p>
+        </div>
+
+        <div class="card">
+            <h3>Save & grow</h3>
+            <p class="small muted">
+                Houd je spaardoelen en maandelijkse voortgang bij.
+            </p>
+        </div>
+
+        <div class="card">
+            <h3>Secure access</h3>
+            <p class="small muted">
+                Je financiële gegevens zijn veilig en overzichtelijk.
+            </p>
+        </div>
+
+    </section>
+
+</main>
+
+
+<footer>
+    <div class="container">
+        <div class="small">
+            © Home Bank — 2026. All rights reserved.
+        </div>
+    </div>
+</footer>
+
+
+<!-- TRANSACTIE MODAL -->
+
+<div class="modal" id="transactionModal">
+
+    <div class="modal-content">
+
+        <h2>Transactie toevoegen</h2>
+
+        <div class="form-group">
+            <label for="transactionType">
+                Type
+            </label>
+
+            <select id="transactionType">
+                <option value="income">Inkomsten</option>
+                <option value="expense">Uitgave</option>
+            </select>
+        </div>
+
+        <div class="form-group">
+            <label for="transactionAmount">
+                Bedrag
+            </label>
+
+            <input
+                type="number"
+                id="transactionAmount"
+                placeholder="Bijvoorbeeld 125.50"
+                min="0"
+                step="0.01"
+            >
+        </div>
+
+        <div class="form-group">
+            <label for="transactionDescription">
+                Omschrijving
+            </label>
+
+            <input
+                type="text"
+                id="transactionDescription"
+                placeholder="Bijvoorbeeld salaris"
+            >
+        </div>
+
+        <div class="modal-buttons">
+
+            <button class="btn btn-ghost" onclick="closeModal()">
+                Annuleren
+            </button>
+
+            <button class="btn btn-primary" onclick="addTransaction()">
+                Toevoegen
+            </button>
+
+        </div>
+
+    </div>
+
+</div>
+
+
+<script>
+
+    /* =========================
+       FINANCIËLE DATA
+    ========================= */
+
+    let income = 2685.00;
+    let expenses = 1148.40;
+
+    const budgetLimit = 1800.00;
+
+
+    /* =========================
+       EURO FORMATTER
+    ========================= */
+
+    function formatEuro(amount) {
+
+        return new Intl.NumberFormat("nl-NL", {
+            style: "currency",
+            currency: "EUR"
+        }).format(amount);
+
+    }
+
+
+    /* =========================
+       DASHBOARD UPDATEN
+    ========================= */
+
+    function updateDashboard() {
+
+        // Verrekend totaal
+        const balance = income - expenses;
+
+        document.getElementById("balance").textContent =
+            formatEuro(balance);
+
+
+        // Inkomsten / uitgaven
+        document.getElementById("incomeText").textContent =
+            formatEuro(income) + " binnen";
+
+        document.getElementById("expenseText").textContent =
+            formatEuro(expenses) + " buiten";
+
+
+        // Positief / negatief
+        const status = document.getElementById("balanceStatus");
+
+        if (balance >= 0) {
+
+            status.textContent = "▲ Positief";
+            status.style.background = "#d5f8ef";
+            status.style.color = "#00b87c";
+
+        } else {
+
+            status.textContent = "▼ Negatief";
+            status.style.background = "#ffe0e0";
+            status.style.color = "#dc2626";
+
+        }
+
+
+        // Balk inkomsten/uitgaven
+        const total = income + expenses;
+
+        const incomePercentage =
+            total > 0 ? (income / total) * 100 : 50;
+
+        const expensePercentage =
+            total > 0 ? (expenses / total) * 100 : 50;
+
+        document.getElementById("incomeBar").style.width =
+            incomePercentage + "%";
+
+        document.getElementById("expenseBar").style.width =
+            expensePercentage + "%";
+
+
+        // Budget
+        const remaining =
+            Math.max(0, budgetLimit - expenses);
+
+        document.getElementById("budgetExpense").textContent =
+            formatEuro(expenses);
+
+        document.getElementById("budgetRemaining").textContent =
+            formatEuro(remaining);
+
+
+        const expenseBudgetPercentage =
+            Math.min(100, (expenses / budgetLimit) * 100);
+
+        const remainingBudgetPercentage =
+            Math.max(0, 100 - expenseBudgetPercentage);
+
+
+        document.getElementById("expenseProgress").style.width =
+            expenseBudgetPercentage + "%";
+
+        document.getElementById("remainingProgress").style.width =
+            remainingBudgetPercentage + "%";
+
+    }
+
+
+    /* =========================
+       MODAL
+    ========================= */
+
+    function openModal() {
+
+        document
+            .getElementById("transactionModal")
+            .classList.add("active");
+
+    }
+
+
+    function closeModal() {
+
+        document
+            .getElementById("transactionModal")
+            .classList.remove("active");
+
+    }
+
+
+    /* =========================
+       TRANSACTIE TOEVOEGEN
+    ========================= */
+
+    function addTransaction() {
+
+        const type =
+            document.getElementById("transactionType").value;
+
+        const amount =
+            parseFloat(
+                document.getElementById("transactionAmount").value
+            );
+
+        if (!amount || amount <= 0) {
+
+            alert("Vul een geldig bedrag in.");
+            return;
+
+        }
+
+
+        if (type === "income") {
+
+            income += amount;
+
+        } else {
+
+            expenses += amount;
+
+        }
+
+
+        // Dashboard opnieuw berekenen
+        updateDashboard();
+
+
+        // Formulier leegmaken
+        document.getElementById("transactionAmount").value = "";
+        document.getElementById("transactionDescription").value = "";
+
+
+        closeModal();
+
+    }
+
+
+    /* =========================
+       START
+    ========================= */
+
+    updateDashboard();
+
+</script>
+
 </body>
 </html>
