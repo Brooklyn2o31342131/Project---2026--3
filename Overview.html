@@ -1,0 +1,138 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width,initial-scale=1" />
+    <title>Home Bank — Personal Banking</title>
+    <style>
+        :root{--primary:#0b74ff;--accent:#06b6d4;--muted:#6b7280;--bg:#f7fbff}
+        *{box-sizing:border-box}
+        body{font-family:Inter, system-ui, -apple-system, 'Segoe UI', Roboto, 'Helvetica Neue', Arial;line-height:1.4;color:#0f172a;margin:0;background:var(--bg)}
+        header{background:#fff;border-bottom:1px solid #e6eef9}
+        .container{max-width:1100px;margin:0 auto;padding:1rem}
+        .nav{display:flex;align-items:center;justify-content:space-between;gap:1rem}
+        .brand{display:flex;align-items:center;gap:.75rem;font-weight:700;font-size:1.05rem;color:var(--primary)}
+        .nav-links{display:flex;gap:1rem}
+        .nav-links a{color:var(--ted);text-decoration:none;font-weight:600}
+        .cta{display:flex;gap:.5rem}
+        .btn{padding:.55rem .9rem;border-radius:.5rem;border:1px solid transparent;cursor:pointer;font-weight:700}
+        .btn-primary{background:linear-gradient(90deg,var(--primary),#2b8eff);color:#fff}
+         .btn-ghost{background:transparent;border-color:transparent;color:var(--primary)}
+
+        .hero{padding:3.2rem 0;display:grid;grid-template-columns:1fr;gap:1.5rem;align-items:center}
+        .hero-left h1{font-size:2rem;margin:0 0 .6rem}
+       .card h3{margin:.25rem 0 .5rem}
+    .hero-left p{color:var(--muted);margin:0 0 1rem}
+        .features{display:flex;flex-wrap:wrap;gap:1rem;margin-top:1rem}
+        .card{background:#fff;padding:1rem;border-radius:.75rem;flex:1 1 220px;border:1px solid #eef6ff}
+     
+        footer{padding:2rem 0;margin-top:2rem;color:var(--muted)}
+
+        /* responsive */
+        @media(min-width:800px){
+            .hero{grid-template-columns:1fr 420px}
+            .hero-left h1{font-size:2.5rem}
+        }
+        /* small utilities */
+        .muted{color:var(--muted)}
+        .small{font-size:.9rem}
+    </style>
+</head>
+<body>
+    <div class="app-shell">
+        <main>
+            <header class="topbar">
+                <div>
+                    <h1>Good morning, User</h1>
+                </div>
+                <time class="date-label" id="today-label"></time>
+            </header>
+
+            <section class="summary-grid" aria-label="Financial summary">
+                <article class="summary-card balance"><div class="card-label">Current balance <span class="mini-icon">&#8599;</span></div><p class="card-value" id="balance">€0.00</p><p class="trend" id="balance-trend">Ready for your first entry</p></article>
+                <article class="summary-card"><div class="card-label">Income this month <span class="mini-icon">&#8595;</span></div><p class="card-value" id="income">€0.00</p><p class="trend" id="income-trend">No income yet</p></article>
+                <article class="summary-card"><div class="card-label">Expenses this month <span class="mini-icon">&#8593;</span></div><p class="card-value" id="expenses">€0.00</p><p class="trend" id="expense-trend">No expenses yet</p></article>
+            </section>
+
+            <section class="content-grid">
+                <article class="panel transactions-panel" id="transactions">
+                    <div class="panel-header"><h2>Recent transactions</h2><select class="filter" id="transaction-filter" aria-label="Filter transactions"><option value="all">All activity</option><option value="income">Income</option><option value="expense">Expenses</option></select></div>
+                    <div class="transaction-list" id="transaction-list"><div class="empty" id="empty-state">No transactions here yet.</div></div>
+                </article>
+
+                <article class="panel form-panel" id="transaction-form">
+                    <h2>Add a transaction</h2>
+                    <div class="form-tabs" role="tablist" aria-label="Transaction type"><button class="tab active" type="button" data-type="income" role="tab" aria-selected="true">Add income</button><button class="tab" type="button" data-type="expense" role="tab" aria-selected="false">Add expense</button></div>
+                    <form id="transaction-entry">
+                        <label for="description">What is it for?</label><input id="description" name="description" type="text" placeholder="e.g. Freelance work" required>
+                        <label for="amount">Amount</label><div class="amount-input"><span>€</span><input id="amount" name="amount" type="number" min="0.01" step="0.01" placeholder="0.00" required></div>
+                        <label for="category">Category</label><select id="category" name="category"><option>Salary</option><option>Freelance</option><option>Housing</option><option>Food</option><option>Transport</option><option>Fun</option><option>Other</option></select>
+                        <label for="date">Date</label><input id="date" name="date" type="date" required>
+                        <div class="notice" id="form-notice" role="status"></div>
+                        <button class="submit-btn" type="submit" id="submit-button">Add income</button>
+                    </form>
+                </article>
+            </section>
+        </main>
+    </div>
+
+    <script>
+        (() => {
+            const entries = [];
+            let activeType = 'income';
+            const currency = new Intl.NumberFormat('en-IE', { style: 'currency', currency: 'EUR' });
+            const list = document.querySelector('#transaction-list');
+            const form = document.querySelector('#transaction-entry');
+            const dateInput = document.querySelector('#date');
+            const today = new Date();
+            const todayValue = today.toISOString().slice(0, 10);
+
+            dateInput.value = todayValue;
+            document.querySelector('#today-label').textContent = today.toLocaleDateString('en-GB', { weekday: 'long', day: 'numeric', month: 'short', year: 'numeric' });
+
+            const escapeHtml = value => value.replace(/[&<>'"]/g, character => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', "'": '&#39;', '"': '&quot;' })[character]);
+
+            const updateSummary = () => {
+                const income = entries.filter(entry => entry.type === 'income').reduce((sum, entry) => sum + entry.amount, 0);
+                const expenses = entries.filter(entry => entry.type === 'expense').reduce((sum, entry) => sum + entry.amount, 0);
+                document.querySelector('#balance').textContent = currency.format(income - expenses);
+                document.querySelector('#income').textContent = currency.format(income);
+                document.querySelector('#expenses').textContent = currency.format(expenses);
+                document.querySelector('#balance-trend').textContent = entries.length ? `${entries.length} transaction${entries.length === 1 ? '' : 's'} tracked` : 'Ready for your first entry';
+                document.querySelector('#income-trend').textContent = income ? 'Income recorded this month' : 'No income yet';
+                document.querySelector('#expense-trend').textContent = expenses ? 'Expenses recorded this month' : 'No expenses yet';
+            };
+
+            const render = () => {
+                const filter = document.querySelector('#transaction-filter').value;
+                const visibleEntries = entries.filter(entry => filter === 'all' || entry.type === filter);
+                list.innerHTML = visibleEntries.length ? visibleEntries.map(entry => `<div class="transaction"><span class="transaction-icon ${entry.type === 'expense' ? 'expense' : ''}">${entry.type === 'income' ? '&#8595;' : '&#8593;'}</span><div><div class="transaction-name">${escapeHtml(entry.description)}</div><div class="transaction-meta">${escapeHtml(entry.category)} · ${escapeHtml(entry.date)}</div></div><span class="amount ${entry.type}">${entry.type === 'income' ? '+' : '-'}${currency.format(entry.amount)}</span><button class="delete-btn" type="button" data-id="${entry.id}" aria-label="Delete ${escapeHtml(entry.description)}">&#10005;</button></div>`).join('') : `<div class="empty">${entries.length ? 'No transactions match this filter.' : 'No transactions here yet.'}</div>`;
+                updateSummary();
+            };
+
+            document.querySelectorAll('.tab').forEach(tab => tab.addEventListener('click', () => {
+                activeType = tab.dataset.type;
+                document.querySelectorAll('.tab').forEach(item => { item.classList.toggle('active', item === tab); item.setAttribute('aria-selected', item === tab); });
+                document.querySelector('#submit-button').textContent = activeType === 'income' ? 'Add income' : 'Add expense';
+            }));
+
+            form.addEventListener('submit', event => {
+                event.preventDefault();
+                const data = new FormData(form);
+                entries.unshift({ id: Date.now(), type: activeType, description: data.get('description').trim(), amount: Number(data.get('amount')), category: data.get('category'), date: data.get('date') });
+                form.reset();
+                dateInput.value = todayValue;
+                render();
+                document.querySelector('#form-notice').textContent = 'Transaction added successfully.';
+                document.querySelector('#form-notice').classList.add('visible');
+                window.setTimeout(() => document.querySelector('#form-notice').classList.remove('visible'), 2200);
+            });
+
+            document.querySelector('#transaction-filter').addEventListener('change', render);
+            list.addEventListener('click', event => { if (event.target.matches('.delete-btn')) { const index = entries.findIndex(entry => entry.id === Number(event.target.dataset.id)); entries.splice(index, 1); render(); } });
+            document.querySelectorAll('[data-scroll]').forEach(button => button.addEventListener('click', () => document.querySelector(`#${button.dataset.scroll}`).scrollIntoView({ behavior: 'smooth' })));
+            render();
+        })();
+    </script>
+</body>
+</html>
