@@ -35,7 +35,7 @@
         .saldo-bedrag {
             font-size: 24px;
             font-weight: bold;
-            color: #087ea4;
+            color: #000000;
 
             
         }
@@ -48,14 +48,53 @@ main p {
 }
 
 .container {
-    background-color: #e1f4fa !important;
+    background: linear-gradient(180deg, #edf9fd 0%, #f4fbff 100%);
+    border-radius: 24px;
+    padding: 28px;
+    gap: 24px;
+    max-width: 1200px;
+    margin: 0 auto 40px;
 }
 
 .container div {
-    background-color: #ffffff;
-    border-color: #c7e4ed;
+    background: linear-gradient(145deg, #ffffff 0%, #edf9ff 100%);
+    border: 1px solid #d4ebf2;
+    border-radius: 18px;
     color: #214b64;
-    box-shadow: 0 4px 14px rgba(38, 111, 145, 0.08);
+    box-shadow: 0 10px 22px rgba(38, 111, 145, 0.12);
+    padding: 28px 22px;
+    min-height: 170px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: flex-start;
+    transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+.container div:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 14px 28px rgba(38, 111, 145, 0.16);
+}
+
+.container div span {
+    font-size: 13px;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    font-weight: 700;
+    color: #4a8ba8;
+    margin-bottom: 12px;
+}
+
+.container div strong {
+    font-size: 30px;
+    line-height: 1.2;
+    color: #123b56;
+    margin-bottom: 8px;
+}
+
+.container div small {
+    font-size: 13px;
+    color: #537b95;
 }
 
 .my-button {
@@ -73,7 +112,7 @@ main p {
 </head>
 <body>
     <header>
-        <h1>Mijn bank</h1>
+        <h1><p style="font-family:verdana">Mijn bank</p></h1>
         <div class="saldo">
             <p>Je saldo</p>
             <p class="saldo-bedrag">€ 2.450,75</p>
@@ -140,13 +179,37 @@ main p {
 
 
 
-<div class="container">
-  <div>Saldo dit maand</div>
-  <div>Maandbudget</div>
-  <div>Verwachting volgende week</div>
-  <div>4</div>
-  <div>5</div>
-  <div>Grafiek</div>
+<div class="container" style="display: grid; grid-template-columns: repeat(3, minmax(220px, 1fr));">
+  <div>
+    <span>Saldo dit maand</span>
+    <strong>€ 1.240</strong>
+    <small>+ 8,4% ten opzichte van vorig maand</small>
+  </div>
+  <div>
+    <span>Maandbudget</span>
+    <strong>€ 2.800</strong>
+    <small>€ 620 nog over om te besteden</small>
+  </div>
+  <div>
+    <span>Volgende week</span>
+    <strong>€ 3.100</strong>
+    <small>Verwachte inkomsten blijven stabiel</small>
+  </div>
+  <div>
+    <span>Uitgaven</span>
+    <strong>€ 1.360</strong>
+    <small>Vastgoed en boodschappen zijn lager</small>
+  </div>
+  <div>
+    <span>Besparingen</span>
+    <strong>€ 540</strong>
+    <small>+ € 90 deze week opgeslagen</small>
+  </div>
+  <div>
+    <span>Grafiek</span>
+    <strong>+ 12%</strong>
+    <small>Groei in de laatste 30 dagen</small>
+  </div>
 </div>
 
 </body>
