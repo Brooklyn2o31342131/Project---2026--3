@@ -1,0 +1,41 @@
+version: '3.8'
+
+services:
+  # 1. DataBase(MySQL / MariaDB)
+  db:
+    image: mariadb:latest
+    container_name: BankApp-db
+    restart: always
+    environment:
+      MYSQL_ROOT_PASSWORD: rootpassword
+      MYSQL_DATABASE: mydatabase
+      MYSQL_USER: user
+      MYSQL_PASSWORD: userpassword
+    ports:
+      - "3306:3306"
+    volumes:
+      - db_data:/var/lib/mysql
+
+  # 2. phpMyAdmin
+  phpmyadmin:
+    image: phpmyadmin/phpmyadmin:latest
+    container_name: BankApp-phpmyadmin
+    restart: always
+    ports:
+      - "8081:80"
+    environment:
+      PMA_HOST: db
+      MYSQL_ROOT_PASSWORD: rootpassword
+
+  # 3. PHP (Apache + PHP)
+  web:
+    image: php:8.2-apache
+    container_name: BankApp
+    restart: always
+    ports:
+      - "8080:80"
+    volumes:
+      - ./:/var/www/html
+
+volumes:
+  db_data:
