@@ -89,3 +89,7 @@ https://talnet-my.sharepoint.com/:w:/r/personal/2240050_talnet_nl/Documents/Proj
 
 Stand up 1 Wat wil je bereiken? Ik wil een beginnen met een Header maken waar je het verrekende totaal geld ziet
          2 Zijn er problemen? Nee nog niet denk ik.
+
+Stand up 2: --
+
+Stand up 3: ik ben begonnen met de html maken van de homepage voor de website, docker en bank homepage.      
