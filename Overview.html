@@ -4,30 +4,33 @@
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width,initial-scale=1" />
     <title>Home Bank — Personal Banking</title>
+    <link rel="stylesheet" href="Untitled-1.css" />
 </head>
 <body>
     <div>
         <main>
             <header>
-                <div>
-                    <h1>Good morning, User</h1>
-                </div>
+                <div class="container nav">
+                <div class="brand" aria-label="Home Bank logo">
+                <svg width="36" height="36" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true"><rect width="24" height="24" rx="6" fill="#0b74ff"/><path d="M7 11h10v2H7z" fill="#fff"/></svg>
+                Home Bank
+            </div>
                 <time id="today-label"></time>
             </header>
 
-            <section aria-label="Financial summary">
+            <section class="container" aria-label="Financial summary">
                 <article class="summary-card balance"><div class="card-label">Current balance <span class="mini-icon">&#8599;</span></div><p class="card-value" id="balance">€0.00</p><p class="trend" id="balance-trend">Ready for your first entry</p></article>
                 <article class="summary-card"><div class="card-label">Income this month <span class="mini-icon">&#8595;</span></div><p class="card-value" id="income">€0.00</p><p class="trend" id="income-trend">No income yet</p></article>
                 <article class="summary-card"><div class="card-label">Expenses this month <span class="mini-icon">&#8593;</span></div><p class="card-value" id="expenses">€0.00</p><p class="trend" id="expense-trend">No expenses yet</p></article>
             </section>
 
-            <section>
-                <article class="panel transactions-panel" id="transactions">
+            <section class="features" aria-label="Transactions and entry form">
+                <article class="card" id="transactions">
                     <div class="panel-header"><h2>Recent transactions</h2><select class="filter" id="transaction-filter" aria-label="Filter transactions"><option value="all">All activity</option><option value="income">Income</option><option value="expense">Expenses</option></select></div>
                     <div class="transaction-list" id="transaction-list"><div class="empty" id="empty-state">No transactions here yet.</div></div>
                 </article>
 
-                <article id="transaction-form">
+                <article class="card" id="transaction-form">
                     <h2>Add a transaction</h2>
                     <div class="form-tabs" role="tablist" aria-label="Transaction type"><button class="tab active" type="button" data-type="income" role="tab" aria-selected="true">Add income</button><button class="tab" type="button" data-type="expense" role="tab" aria-selected="false">Add expense</button></div>
                     <form id="transaction-entry">
