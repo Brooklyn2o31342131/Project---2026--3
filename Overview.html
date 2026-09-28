@@ -19,9 +19,11 @@
             </header>
 
             <section class="container" aria-label="Financial summary">
-                <article class="summary-card balance"><div class="card-label">Current balance <span class="mini-icon">&#8599;</span></div><p class="card-value" id="balance">€0.00</p><p class="trend" id="balance-trend">Ready for your first entry</p></article>
-                <article class="summary-card"><div class="card-label">Income this month <span class="mini-icon">&#8595;</span></div><p class="card-value" id="income">€0.00</p><p class="trend" id="income-trend">No income yet</p></article>
-                <article class="summary-card"><div class="card-label">Expenses this month <span class="mini-icon">&#8593;</span></div><p class="card-value" id="expenses">€0.00</p><p class="trend" id="expense-trend">No expenses yet</p></article>
+                <div class="car">
+                <article><div class="card-label">Current balance <span class="mini-icon">&#8599;</span></div><p class="card-value" id="balance">€0.00</p><p class="trend" id="balance-trend">Ready for your first entry</p></article><br>
+                <article><div class="card-label">Income this month <span class="mini-icon">&#8593;</span></div><p class="card-value" id="income">€0.00</p><p class="trend" id="income-trend">No income yet</p></article><br>
+                <article><div class="card-label">Expenses this month <span class="mini-icon">&#8595;</span></div><p class="card-value" id="expenses">€0.00</p><p class="trend" id="expense-trend">No expenses yet</p></article>
+                </div>
             </section>
 
             <section class="features" aria-label="Transactions and entry form">
@@ -69,14 +71,14 @@
                 document.querySelector('#income').textContent = currency.format(income);
                 document.querySelector('#expenses').textContent = currency.format(expenses);
                 document.querySelector('#balance-trend').textContent = entries.length ? `${entries.length} transaction${entries.length === 1 ? '' : 's'} tracked` : 'Ready for your first entry';
-                document.querySelector('#income-trend').textContent = income ? 'Income recorded this month' : 'No income yet';
-                document.querySelector('#expense-trend').textContent = expenses ? 'Expenses recorded this month' : 'No expenses yet';
+                document.querySelector('#income-trend').textContent = income ? ' +Income recorded this month' : ' +No income yet';
+                document.querySelector('#expense-trend').textContent = expenses ? ' -Expenses recorded this month' : ' -No expenses yet';
             };
 
             const render = () => {
                 const filter = document.querySelector('#transaction-filter').value;
                 const visibleEntries = entries.filter(entry => filter === 'all' || entry.type === filter);
-                list.innerHTML = visibleEntries.length ? visibleEntries.map(entry => `<div class="transaction"><span class="transaction-icon ${entry.type === 'expense' ? 'expense' : ''}">${entry.type === 'income' ? '&#8595;' : '&#8593;'}</span><div><div class="transaction-name">${escapeHtml(entry.description)}</div><div class="transaction-meta">${escapeHtml(entry.category)} · ${escapeHtml(entry.date)}</div></div><span class="amount ${entry.type}">${entry.type === 'income' ? '+' : '-'}${currency.format(entry.amount)}</span><button class="delete-btn" type="button" data-id="${entry.id}" aria-label="Delete ${escapeHtml(entry.description)}">&#10005;</button></div>`).join('') : `<div class="empty">${entries.length ? 'No transactions match this filter.' : 'No transactions here yet.'}</div>`;
+                list.innerHTML = visibleEntries.length ? visibleEntries.map(entry => `<div class="transaction"><span class="transaction-icon ${entry.type === 'expense' ? 'expense' : ''}">${entry.type === 'income' ? '&#8593;' : '&#8595;'}</span><div><div class="transaction-name">${escapeHtml(entry.description)}</div><div class="transaction-meta">${escapeHtml(entry.category)} · ${escapeHtml(entry.date)}</div></div><span class="amount ${entry.type}">${entry.type === 'income' ? '+' : '-'}${currency.format(entry.amount)}</span><button class="delete-btn" type="button" data-id="${entry.id}" aria-label="Delete ${escapeHtml(entry.description)}">&#10005;</button></div>`).join('') : `<div class="empty">${entries.length ? 'No transactions match this filter.' : 'No transactions here yet.'}</div>`;
                 updateSummary();
             };
 
