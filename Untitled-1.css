@@ -18,14 +18,13 @@
     .hero-left p{color:var(--muted);margin:0 0 1rem}
         .features{display:flex;flex-wrap:wrap;gap:1rem;margin-top:1rem}
         .card{background:#fff;padding:1rem;border-radius:.75rem;flex:1 1 220px;border:1px solid #eef6ff}
-     
+        .car{display:flex;flex-wrap:wrap;gap:1rem row;justify-content:space-between; margin-top:1rem}
+
         footer{padding:2rem 0;margin-top:2rem;color:var(--muted)}
 
-        /* responsive */
         @media(min-width:800px){
             .hero{grid-template-columns:1fr 420px}
             .hero-left h1{font-size:2.5rem}
         }
-        /* small utilities */
         .muted{color:var(--muted)}
         .small{font-size:.9rem}
